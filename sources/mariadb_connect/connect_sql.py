@@ -69,7 +69,7 @@ def search_runs(table_name, initial_date, final_date):
     connect = ConnectSql()
     connect.cursor.execute(
         "SELECT DATE_FORMAT(date_time, '%d-%m-%Y %H:%i'), valor, operator \
-        FROM database_g4.{} \
+        FROM base_g4.{} \
         WHERE date_time \
         BETWEEN '{}' AND '{}';".format(table_name, initial_date, final_date))
     list_ = [[tables[0], tables[1], tables[2]]

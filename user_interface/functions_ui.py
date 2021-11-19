@@ -1,13 +1,12 @@
 ''' Tkinter Functions to user Interactions '''
 
-
 from datetime import datetime
+import locale
+
 from tkinter.constants import END, TRUE
 from typing import List
-import locale
 from tkinter import filedialog
 from sources import DataExtructure
-
 
 from sources import (
     extract,
@@ -17,34 +16,29 @@ from sources import (
     search_runs,
     show_tables,
     ConfigJson
-    
 )
-
-from . main import *
-
-
 
 class TkFunctions():        
     """Functions for UI interactios"""
-    def list_moto(self):
-        data = self.config.get_records()
-        list_ = [item[0] for item in data]
+    def list_moto(self) -> List:
+        """"Return a list with motorist name""" 
+        list_ = [item[0] for item in self.config.get_records()]
         if list_ == []: list_ = ["not motorists"]
         return list_
 
     def insert_treeview_data(self, data_frame: List) -> None:
         """Insert in Treeview Data"""
-        self.dataTreeview.delete(
-            *self.dataTreeview.get_children())
-        [self.dataTreeview.insert(
+        self.data_treeview.delete(
+            *self.data_treeview.get_children())
+        [self.data_treeview.insert(
             "", END, values=(data[0], locale.currency(data[1]), data[2]))
                                 for data in data_frame]
 
     def insert_treeview_result(self, data_frame: List) -> None:
         """Insert in Treeview Result"""
-        self.resultTreeview.delete(
-            *self.resultTreeview.get_children())
-        [self.resultTreeview.insert(
+        self.result_treeview.delete(
+            *self.result_treeview.get_children())
+        [self.result_treeview.insert(
             "", END, values=(
                 data[0], data[1], data[2], data[3], data[4], data[5]))
                                         for data in data_frame]
@@ -52,18 +46,20 @@ class TkFunctions():
     def pick_date(self, option: int) -> datetime:
         """Formate date in correct format"""
         if option == 0:
-            return datetime.strptime(self.leftCalendar.get(), '%d/%m/%Y')
+            return datetime.strptime(self.left_calendar.get(), '%d/%m/%Y')
         elif option == 1:
-            return datetime.strptime(self.rightCalendar.get(), '%d/%m/%Y')
+            return datetime.strptime(self.right_calendar.get(), '%d/%m/%Y')
         
-    def search_(self):
+    def search_(self) -> None:
         """Search Motorist Faturation"""
+        name = self.str_var.get()
+        if name == "MOTORISTAS": return None
+
         date_one = self.pick_date(0)
         date_two = self.pick_date(1)
-        name = self.stringVar.get()
+
         porcents = self.check_porcent(name)
 
-        # analyse informations
         data_frame = search_runs(name, date_one, date_two)
         motorist = DataExtructure(
             name, 
@@ -71,6 +67,7 @@ class TkFunctions():
             data_frame, 
             porcents,
             )
+
         result = motorist.get_result_faturation_list()
 
         self.insert_treeview_data(data_frame)
@@ -91,14 +88,14 @@ class TkFunctions():
         motorist.report_pdf(directory, [date_one, date_two]) 
     
     def check_porcent(self, name: str) -> List:
+        """Check porcents from Motorists"""
         state = self.config.get_record_porcent(name)
-        porcents = self.config.get_values_list()
         if state == 0:
-            return [porcents[0], porcents[1]]
+            return [self.porcents[0], self.porcents[1]]
         elif state == 1:
-            return [porcents[2], porcents[3]]
+            return [self.porcents[2], self.porcents[3]]
 
-    def export_all(self):
+    def export_all(self) -> None:
         """Report Pdf for All Motrists"""
         date_one = self.pick_date(0)
         date_two = self.pick_date(1)
@@ -111,7 +108,8 @@ class TkFunctions():
             motorist.report_pdf(directory, [date_one, date_two])
 
                 
-    def importar(self):
+    def import_data(self) -> None:
+        """Import Files Data for the System"""
         extract(filedialog.askdirectory(), 'G4 MOBILE', 'reais')
         create_sql_table()
         insert_data()
@@ -170,11 +168,3 @@ class TkFunctions():
             ]
         ])
         self.porcents = self.config.get_values()
-
-
-        
-    def reset_values(self):
-        self.config.mod_values((
-            ((10, 15, 20), (-90, -15, -20)),
-            ((10, 15, 20), (-90, -15, -20)),
-        ))

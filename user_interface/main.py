@@ -29,7 +29,6 @@ class Application(TkFunctions):
         self.window.resizable(True, True)
         
         self.porcents = self.config.get_values()
-        # print(show_tables())
 
         """Define Brasil Locale for Currency"""
         locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
@@ -55,7 +54,7 @@ class Application(TkFunctions):
         archives = Menu(menu_bar, tearoff=0)
         help_menu = Menu(menu_bar, tearoff=0)
 
-        archives.add_command(label="Importar", command=self.importar) 
+        archives.add_command(label="Importar", command=self.import_data) 
         archives.add_command(label="Exportar", command=None)
         archives.add_command(label="sair", command=None)
         menu_bar.add_cascade(label="Arquivo", menu=archives)
@@ -76,6 +75,7 @@ class Application(TkFunctions):
             relwidth=0.47, 
             relheight=0.95)
 
+        """Treeview for Data Visualization"""
         self.data_treeview = ttk.Treeview(
             self.frame_data_view, 
             height=2,
@@ -104,13 +104,14 @@ class Application(TkFunctions):
         self.data_treeview.heading("#0", text="")
         self.data_treeview.heading("#1", text="date-time")
         self.data_treeview.heading("#2", text="valor")
-        self.data_treeview.heading("#3", text="type")
+        self.data_treeview.heading("#3", text="op.")
 
-        self.data_treeview.column("#0", width=1)
-        self.data_treeview.column("#1", width=1)
-        self.data_treeview.column("#2", width=1)
-        self.data_treeview.column("#3", width=1)
+        self.data_treeview.column("#0", width=40, stretch = "no")
+        self.data_treeview.column("#1", width=140)
+        self.data_treeview.column("#2", width=100)
+        self.data_treeview.column("#3", width=80)
 
+        """Treeview for Result Visualization"""
         self.result_treeview = ttk.Treeview(
             self.frame_data_view, height=3, 
             column=("coll1", "coll2", "coll3", "coll4", "coll5", "coll6"))
@@ -136,47 +137,53 @@ class Application(TkFunctions):
             yscrollcommand=self.scroll_result.set)
 
         self.result_treeview.heading("#0", text="")
-        self.result_treeview.heading("#1", text="Valores")
-        self.result_treeview.heading("#2", text="N°")
-        self.result_treeview.heading("#3", text="Total")
-        self.result_treeview.heading("#4", text="Porcentagens")
+        self.result_treeview.heading("#1", text="valores")
+        self.result_treeview.heading("#2", text="n°")
+        self.result_treeview.heading("#3", text="op.")
+        self.result_treeview.heading("#4", text="%")
         self.result_treeview.heading("#5", text="receita")
         self.result_treeview.heading("#6", text="fatura")
 
-        self.result_treeview.column("#0", width=1)
-        self.result_treeview.column("#1", width=1)
-        self.result_treeview.column("#2", width=1)
-        self.result_treeview.column("#3", width=1)
-        self.result_treeview.column("#4", width=1)
-        self.result_treeview.column("#5", width=1)
-        self.result_treeview.column("#6", width=1)
+        self.result_treeview.column("#0", width=13, stretch = "no", anchor='center')
+        self.result_treeview.column("#1", width=80, anchor='center')
+        self.result_treeview.column("#2", width=40, anchor='center')
+        self.result_treeview.column("#3", width=40, anchor='center')
+        self.result_treeview.column("#4", width=50, anchor='center')
+        self.result_treeview.column("#5", width=93, anchor='center')
+        self.result_treeview.column("#6", width=93, anchor='center')
 
 
     def menu_view(self):
         """Menu with integrations functions"""
 
+        """Left Frame"""
         self.left_frame = Frame(
             self.window, 
             bd=4, bg='#dfe3ee',
             highlightbackground='#759fe6', 
-            highlightthickness=3)
+            highlightthickness=3
+            )
 
         self.left_frame.place(
             relx=0.02, 
             rely=0.03, 
             relwidth=0.47, 
-            relheight=0.95)
+            relheight=0.95
+            )
 
         self.menu_frame = Frame(
             self.left_frame, 
-            bd=1, bg='#dfe3ee',)
+            bd=1, bg='#dfe3ee',
+            )
 
         self.menu_frame.place(
             relx=0.02, 
             rely=0.55, 
             relwidth=0.96, 
-            relheight=0.40)
+            relheight=0.40
+            )
 
+        """Left Calendar"""
         self.left_calendar = DateEntry(
             self.menu_frame, 
             width=12, 
@@ -187,14 +194,17 @@ class Application(TkFunctions):
             selectmode='day', 
             cursor="hand1", 
             year=2021, month=1, day=31, 
-            date_pattern='dd/mm/Y')
+            date_pattern='dd/mm/Y'
+            )
 
         self.left_calendar.place(
             relx=0.02, 
             rely=0.02, 
             relwidth=0.47, 
-            relheight=0.20)
+            relheight=0.20
+            )
 
+        """Right Calendar"""
         self.right_calendar = DateEntry(
             self.menu_frame, 
             width=12, 
@@ -206,28 +216,34 @@ class Application(TkFunctions):
             cursor="hand1", 
             year=2021, 
             month=2, day=7,
-            date_pattern='dd/mm/Y')
+            date_pattern='dd/mm/Y'
+            )
 
         self.right_calendar.place(
             relx=0.52,
             rely=0.02,
             relwidth=0.46,
-            relheight=0.20)
-            
-        self.stringVar = StringVar()
-        self.stringVar.set("MOTORISTAS")
+            relheight=0.20
+            )
+
+        """Drop Menu"""
+        self.str_var = StringVar()
+        self.str_var.set("MOTORISTAS")
 
         self.drop_menu = OptionMenu(
             self.menu_frame, 
-            self.stringVar, 
-            *self.list_moto())
+            self.str_var, 
+            *self.list_moto()
+            )
 
         self.drop_menu.place(
             relx = 0.02, 
             rely = 0.27, 
             relwidth = 0.96, 
-            relheight = 0.18)
+            relheight = 0.18
+            )
 
+        """Button Search"""
         bt_search = Button(
             self.menu_frame, 
             text="PESQUISAR", 
@@ -235,14 +251,17 @@ class Application(TkFunctions):
             bg='#364094', 
             fg='white', 
             font=('verdana', 10, 'bold'), 
-            command=self.search_)
+            command=self.search_
+            )
 
         bt_search.place(
             relx=0.02,
             rely=0.50,
             relwidth=0.47,
-            relheight=0.23)
+            relheight=0.23
+            )
 
+        """Button Export"""
         self.bt_export = Button(
             self.menu_frame, 
             text="EXPORTAR PDF", 
@@ -250,14 +269,17 @@ class Application(TkFunctions):
             bg='#364094', 
             fg='white', 
             font=('verdana', 8, 'bold'), 
-            command=None)
+            command=None
+            )
 
         self.bt_export.place(
             relx=0.51,
             rely=0.50,
             relwidth=0.47,
-            relheight=0.23)
+            relheight=0.23
+            )
 
+        """Button All"""
         self.bt_export_all = Button(
             self.menu_frame, 
             text="EXPORT ALL", 
@@ -265,65 +287,77 @@ class Application(TkFunctions):
             bg='#D92A2A', 
             fg='white', 
             font=('verdana', 8, 'bold'), 
-            command=self.export_all)
+            command=self.export_all
+            )
 
         self.bt_export_all.place(
             relx=0.02,
             rely=0.75,
             relwidth=0.96,
-            relheight=0.23)
+            relheight=0.23
+            )
 
 
     def list_box(self):
-        """List for Motorist Groups"""
+        """List box for Motorist Groups"""
         self.list_box_frame = Frame(
             self.left_frame, 
-            bd=1, bg='#dfe3ee',)
+            bd=1, bg='#dfe3ee',
+            )
 
         self.list_box_frame.place(
             relx=0.02, 
             rely=0.02, 
             relwidth=0.96, 
-            relheight=0.49)
+            relheight=0.49
+            )
 
+        """Fist ListBox"""
         self.fist_list_box = Listbox(self.list_box_frame)
-
         self.fist_list_box.place(
             relx=0.02,
             rely=0.02,
             relwidth=0.43,
-            relheight=0.96)
+            relheight=0.96
+            )
         
         self.scroll = Scrollbar(
             self.fist_list_box, 
             orient='vertical',
-            command=self.fist_list_box.yview)
+            command=self.fist_list_box.yview
+            )
 
         self.scroll.place(
             relx=0.9, 
             rely=0.016, 
             relwidth=0.07, 
-            relheight=0.97)
+            relheight=0.97
+            )
 
+        """Second ListBox"""
         self.second_list_box = Listbox(self.list_box_frame)
 
         self.second_list_box.place(
             relx=0.54,
             rely=0.02,
             relwidth=0.43,
-            relheight=0.96)
+            relheight=0.96
+            )
 
         self.scroll = Scrollbar(
             self.second_list_box, 
             orient='vertical',
-            command=self.second_list_box.yview)
+            command=self.second_list_box.yview
+            )
 
         self.scroll.place(
             relx=0.9, 
             rely=0.016, 
             relwidth=0.07, 
-            relheight=0.97)
+            relheight=0.97
+            )
 
+        """Button Move Right"""
         self.bt_move_right = Button(
             self.list_box_frame, 
             text=">", 
@@ -333,6 +367,7 @@ class Application(TkFunctions):
             font=('verdana', 10, 'bold'), 
             command=self.move_right
             )
+
         self.bt_move_right.place(
             relx=0.47, 
             rely=0.35, 
@@ -340,6 +375,7 @@ class Application(TkFunctions):
             relheight=0.05
             )
 
+        """Button Move Left"""
         self.bt_move_left = Button(
             self.list_box_frame, 
             text="<", 
@@ -347,14 +383,17 @@ class Application(TkFunctions):
             bg='#364094', 
             fg='white', 
             font=('verdana', 10, 'bold'), 
-            command=self.move_left)
+            command=self.move_left
+            )
         
         self.bt_move_left.place(
             relx=0.47, 
             rely=0.5, 
             relwidth=0.055, 
-            relheight=0.05)
+            relheight=0.05
+            )
 
+        """Button Porcents"""
         self.bt_porcent = Button(
             self.list_box_frame, 
             text="%", 
@@ -362,19 +401,22 @@ class Application(TkFunctions):
             bg='#364094', 
             fg='white', 
             font=('verdana', 10, 'bold'), 
-            command=self.window_porcent)
+            command=self.window_porcent
+            )
         
         self.bt_porcent.place(
             relx=0.47, 
             rely=0.7, 
             relwidth=0.055, 
-            relheight=0.05)
+            relheight=0.05
+            )
 
     def window_porcent(self):
         """ toplevel window """
         window_porcent = Toplevel(self.window)
         window_porcent.geometry('400x250')
 
+        """Button Confirm Porcents"""
         bt_confirm = Button(
             window_porcent, 
             text="Confirmar", 
@@ -382,15 +424,15 @@ class Application(TkFunctions):
             bg='#364094', 
             fg='white', 
             font=('verdana', 10, 'bold'), 
-            command=self.set_porcents)
-        
+            command=self.set_porcents
+            )
+
         bt_confirm.place(
             relx=0.38,
             rely=0.82,
             relheight=0.12,
             relwidth=0.2
             )
-    # Labels
 
         frame_porcent = Frame(
             window_porcent, 

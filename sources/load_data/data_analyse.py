@@ -5,24 +5,24 @@ from collections import Counter
 
 
 class DataAnalyse:
-    ''' analyse elements of object '''
+    """ analyse elements of object """
 
     def set_incidences(self, data_frame: List) -> List:
-        ''' This method count how many
+        """ This method count how many
         incidences of an int
         and return a Dict
-        '''
+        """
         dict_ = dict(Counter([(item[1], item[2]) for item in data_frame]))
         return [[item[0], dict_[item], item[1]] for item in dict_]
 
 
-    def analyse_faturation(self, porcents: Tuple, state: bool) -> List:
-        ''' result of analysis '''
-        return self.apply_calc(self.state_porcent(porcents, state))
+    def analyse_faturation(self, porcents: Tuple) -> List:
+        """ result of analysis """
+        return self.apply_calc(porcents)
 
 
     def apply_calc(self, porcent: Tuple) -> List:
-        ''' extruture dataframe '''
+        """ extruture dataframe """
         data_frame = [self.set_porcent(item, porcent) for item in self.get_incidences()]
         for item in data_frame:
             item.append(self.calc_total_receved(item))
@@ -31,7 +31,7 @@ class DataAnalyse:
 
 
     def calc_total_faturation(self, data_frame: List) -> List:
-        ''' calculate total faturtion data '''
+        """ calculate total faturtion data """
         total_amount = sum([(item[1]) for item in data_frame])
         total_receved = sum([(item[4]) for item in data_frame])
         total_revenue = sum([(item[5]) for item in data_frame])
@@ -43,29 +43,21 @@ class DataAnalyse:
             round(total_porcent, 2),
             total_receved,
             total_revenue,
-        )
-
-
-    def state_porcent(self, porcents: Tuple, state: bool) -> Tuple:
-        ''' verify state of DataExtruture and define porcents '''
-        if state == 0:
-            return porcents[0]
-        if state == 1:
-            return porcents[1]
+            )
 
 
     def calc_total_receved(self, data: List) -> int:
-        ''' multiply valor an amount '''
+        """ multiply valor an amount """
         return data[0] * data[1]
 
 
     def calc_porcent(self, data: List) -> float:
-        ''' define revenue valor '''
+        """ define revenue valor """
         return data[3] * data[4] / 100
 
 
     def set_porcent(self, data: List, porcent: Tuple) -> List:
-        ''' define a porcent values for incidences '''
+        """ define a porcent values for incidences """
         if data[0] == 10:
             if data[2] == "+":
                 return [data[0], data[1], data[2], porcent[0][0]]

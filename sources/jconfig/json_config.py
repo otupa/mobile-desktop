@@ -70,3 +70,8 @@ class ConfigJson():
             self.data["values"]["special"]["normal"],
             self.data["values"]["special"]["desc"]
             ]
+    
+    def get_record_porcent(self, record:str) -> int:
+        """Return a record porcent from 
+        specific record"""
+        return self.data["records"][record]["porcent"]
