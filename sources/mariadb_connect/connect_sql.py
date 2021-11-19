@@ -60,10 +60,9 @@ def show_tables():
     connect.cursor.execute(
         "select table_name \
         FROM information_schema.tables \
-        WHERE table_schema = 'database_g4';")
+        WHERE table_schema = 'base_g4';")
     list_ = [tables[0] for tables in connect.cursor.fetchall()]
     connect.close_db()
-    print("sdfsda",list_)
     return list_
 
 def search_runs(table_name, initial_date, final_date):

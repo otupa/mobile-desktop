@@ -121,54 +121,56 @@ class TkFunctions():
     def load_motorists(self) -> None:
         """Insert motorists data in list boxes"""
         self.config.mod_record_list(show_tables())
-        data = self.config.get_records()
-        print(data)
-        # for item in :
-        #     print(item)
-        #     if item[1].get('porcent') == 0:
-        #         self.fist_list_box.insert(END, item[0])
-        #     elif item[1].get('porcent') == 1:
-        #         self.second_list_box.insert(END, item[0])
+        for item in self.config.get_records():
+            if item[1] == 0:
+                self.fist_list_box.insert(END, item[0])
+            elif item[1] == 1:
+                self.second_list_box.insert(END, item[0])
 
 
 
-    def move_right(self):
+    def move_right(self) -> None:
+        """Move record for right list box"""
         indice = self.fist_list_box.curselection()[0]
         name = self.fist_list_box.get(indice)
         self.second_list_box.insert(END, name)
         self.fist_list_box.delete(indice)
         self.config.mod_records(name, 1)
 
-    def move_left(self):
+    def move_left(self) -> None:
+        """Move record for left list box"""
         indice = self.second_list_box.curselection()[0]
         name = self.second_list_box.get(indice)
         self.fist_list_box.insert(END, name)
         self.second_list_box.delete(indice)
         self.config.mod_records(name, 0)
 
-    def set_porcents(self):
+    def set_porcents(self) -> None:
+        """Set porcents with window porcent"""
         self.config.mod_values([
             [
-                self.var_porcent_one.get(),
-                self.var_porcent_two.get(),
-                self.var_porcent_tree.get()
+                int(self.var_porcent_one.get()),
+                int(self.var_porcent_two.get()),
+                int(self.var_porcent_tree.get())
             ],
             [
-                self.var_porcent_desc_one.get(),
-                self.var_porcent_desc_two.get(),
-                self.var_porcent_desc_tree.get()
+                int(self.var_porcent_desc_one.get()),
+                int(self.var_porcent_desc_two.get()),
+                int(self.var_porcent_desc_tree.get())
             ],
             [
-                self.var_porcent_special_one.get(),
-                self.var_porcent_special_two.get(),
-                self.var_porcent_special_tree.get()
+                int(self.var_porcent_special_one.get()),
+                int(self.var_porcent_special_two.get()),
+                int(self.var_porcent_special_tree.get())
             ],
             [
-                self.var_porcent_special_desc_one.get(),
-                self.var_porcent_special_desc_two.get(),
-                self.var_porcent_special_desc_tree.get()
+                int(self.var_porcent_special_desc_one.get()),
+                int(self.var_porcent_special_desc_two.get()),
+                int(self.var_porcent_special_desc_tree.get())
             ]
         ])
+        self.porcents = self.config.get_values()
+
 
         
     def reset_values(self):

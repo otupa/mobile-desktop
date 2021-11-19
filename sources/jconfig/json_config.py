@@ -48,21 +48,25 @@ class ConfigJson():
         self.save_config()
 
 
-    def mod_record_list(self, argument):
-        for item in argument:
-            if not self.data["records"][item]:
+    def mod_record_list(self, record: List) -> None:
+        """Set values for motorists"""
+        for item in record:
+            if not self.data["records"].get(item):
                 self.mod_records(item, 0)
         self.save_config()
 
 
-    def get_records(self):
-        print(self.data["records"])
-        return [(item, value["value"]) 
+    def get_records(self) -> List:
+        """Get a list with all records"""
+        return [(item, value.get('porcent')) 
             for item, value in self.data["records"].items()]
 
 
-    def get_values(self):
+    def get_values(self) -> List:
+        """Get a list with Values"""
         return [
-            self.data["values"],
-
+            self.data["values"]["common"]["normal"],
+            self.data["values"]["common"]["desc"],
+            self.data["values"]["special"]["normal"],
+            self.data["values"]["special"]["desc"]
             ]

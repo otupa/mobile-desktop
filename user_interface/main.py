@@ -27,7 +27,9 @@ class Application(TkFunctions):
         self.window.configure(background='#1e3743')
         self.window.geometry('1000x600')
         self.window.resizable(True, True)
-        print(show_tables())
+        
+        self.porcents = self.config.get_values()
+        # print(show_tables())
 
         """Define Brasil Locale for Currency"""
         locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
@@ -329,13 +331,14 @@ class Application(TkFunctions):
             bg='#364094', 
             fg='white', 
             font=('verdana', 10, 'bold'), 
-            command=None) # self.moveRight
-        
+            command=self.move_right
+            )
         self.bt_move_right.place(
             relx=0.47, 
             rely=0.35, 
             relwidth=0.055, 
-            relheight=0.05)
+            relheight=0.05
+            )
 
         self.bt_move_left = Button(
             self.list_box_frame, 
@@ -344,7 +347,7 @@ class Application(TkFunctions):
             bg='#364094', 
             fg='white', 
             font=('verdana', 10, 'bold'), 
-            command=None) # self.moveLeft
+            command=self.move_left)
         
         self.bt_move_left.place(
             relx=0.47, 
@@ -379,7 +382,7 @@ class Application(TkFunctions):
             bg='#364094', 
             fg='white', 
             font=('verdana', 10, 'bold'), 
-            command=None)
+            command=self.set_porcents)
         
         bt_confirm.place(
             relx=0.38,
@@ -394,13 +397,15 @@ class Application(TkFunctions):
             bd=4, 
             bg='#dfe3ee',
             highlightbackground='#759fe6', 
-            highlightthickness=3)
+            highlightthickness=3
+            )
         
         frame_porcent.place(
             relx=0.02,
             rely=0.02,
             relheight=0.76,
-            relwidth=0.46)
+            relwidth=0.46
+            )
         
         lb_title = Label(
             frame_porcent, 
@@ -427,11 +432,13 @@ class Application(TkFunctions):
         lb_porcent = Label(
             frame_porcent,
             text='Porcent',
-            bg = '#dfe3ee')
+            bg = '#dfe3ee'
+            )
 
         lb_porcent.place(
             relx=0.35,
-            rely=0.2)
+            rely=0.2
+            )
 
         lb_porcent_desc = Label(
             frame_porcent,
@@ -477,53 +484,114 @@ class Application(TkFunctions):
             rely=0.8
             )
 
-    # Entrys
+        """Porcent Common Normal One"""
+        self.var_porcent_one = StringVar(
+            self.window, 
+            self.porcents[0][0]
+            )
 
+        self.porcent_entry_one = Entry(
+            frame_porcent, 
+            textvariable=self.var_porcent_one
+            )
 
-        self.porcent_entry_one = Entry(frame_porcent)
         self.porcent_entry_one.place(
             relx=0.4, 
             rely=0.4, 
             relwidth=0.14, 
             relheight=0.12)
 
-        # self.porcent_entry_two = Entry(frame_porcent)
-        # self.porcent_entry_two.place(
-        #     relx=0.4, 
-        #     rely=0.6, 
-        #     relwidth=0.14, 
-        #     relheight=0.12)        
-            
-        # self.porcent_entry_tree = Entry(frame_porcent)
-        # self.porcent_entry_tree.place(
-        #     relx=0.7, 
-        #     rely=0.8, 
-        #     relwidth=0.14, 
-        #     relheight=0.12)
 
-        # self.porcent_entry_one_desc = Entry(frame_porcent)
-        # self.porcent_entry_one_desc.place(
-        #     relx=0.7, 
-        #     rely=0.4, 
-        #     relwidth=0.14, 
-        #     relheight=0.12)
+        """Porcent Common Normal Two"""
+        self.var_porcent_two = StringVar(
+            self.window, 
+            self.porcents[0][1]
+            )
 
-        # self.porcent_entry_two_desc = Entry(frame_porcent)
-        # self.porcent_entry_two_desc.place(
-        #     relx=0.7, 
-        #     rely=0.6, 
-        #     relwidth=0.14, 
-        #     relheight=0.12)        
-            
-        # self.porcent_entry_tree_desc = Entry(frame_porcent)
-        # self.porcent_entry_tree_desc.place(
-        #     relx=0.4, 
-        #     rely=0.8, 
-        #     relwidth=0.14, 
-        #     relheight=0.12)
+        self.porcent_entry_two = Entry(
+            frame_porcent,
+            textvariable=self.var_porcent_two
+            )
 
-        # -------- Frame _special Porcent -------- #
+        self.porcent_entry_two.place(
+            relx=0.4, 
+            rely=0.6, 
+            relwidth=0.14, 
+            relheight=0.12
+            )    
 
+
+        """Porcent Common Normal Tree"""
+        self.var_porcent_tree = StringVar(
+            self.window, 
+            self.porcents[0][2]
+            )    
+
+        self.porcent_entry_tree = Entry(
+            frame_porcent,
+            textvariable=self.var_porcent_tree
+            )
+
+        self.porcent_entry_tree.place(
+            relx=0.4, 
+            rely=0.8, 
+            relwidth=0.14, 
+            relheight=0.12)
+
+
+        """Porcent Common Desc One"""
+        self.var_porcent_desc_one = StringVar(
+            self.window, 
+            self.porcents[1][0]
+            )
+
+        self.porcent_entry_one_desc = Entry(
+            frame_porcent,
+            textvariable=self.var_porcent_desc_one
+            )
+
+        self.porcent_entry_one_desc.place(
+            relx=0.7,
+            rely=0.4,
+            relwidth=0.14, 
+            relheight=0.12)
+
+        """Porcent Common Desc Two"""
+        self.var_porcent_desc_two = StringVar(
+            self.window,
+            self.porcents[1][1]
+            )
+
+        self.porcent_entry_two_desc = Entry(
+            frame_porcent,
+            textvariable=self.var_porcent_desc_two
+            )
+
+        self.porcent_entry_two_desc.place(
+            relx=0.7, 
+            rely=0.6, 
+            relwidth=0.14, 
+            relheight=0.12
+            )        
+
+        """Porcent Common Desc Tree"""
+        self.var_porcent_desc_tree = StringVar(
+            self.window,
+            self.porcents[1][2]
+            )
+
+        self.porcent_entry_tree_desc = Entry(
+            frame_porcent,
+            textvariable=self.var_porcent_desc_tree
+            )
+
+        self.porcent_entry_tree_desc.place(
+            relx=0.7, 
+            rely=0.8, 
+            relwidth=0.14, 
+            relheight=0.12)
+
+        """Frames for Special Porcents"""
         frame_porcentTwo = Frame(
             window_porcent, 
             bd=4, 
@@ -544,28 +612,29 @@ class Application(TkFunctions):
             frame_porcentTwo, 
             text = "Definir Porcentagens", 
             bg = '#dfe3ee'
-        )
+            )
 
         lb_title_special.place(
             relx=0.2,
             rely=0.02,
-        )
+            )
 
         lb_valor_special = Label(
             frame_porcentTwo,
             text='Valor',
             bg = '#dfe3ee'
-        )
+            )
 
         lb_valor_special.place(
             relx=0.02,
             rely=0.2
-        )
+            )
 
         lb_porcent_special = Label(
             frame_porcentTwo,
             text='Porcent',
-            bg = '#dfe3ee')
+            bg = '#dfe3ee'
+            )
 
         lb_porcent_special.place(
             relx=0.35,
@@ -574,7 +643,8 @@ class Application(TkFunctions):
         lb_porcent_desc_special = Label(
             frame_porcentTwo,
             text='P. _desc.',
-            bg = '#dfe3ee')
+            bg = '#dfe3ee'
+            )
 
         lb_porcent_desc_special.place(
             relx=0.70,
@@ -583,72 +653,140 @@ class Application(TkFunctions):
         lb_porcent_one_special = Label(
             frame_porcentTwo, 
             text = "R$10 >=", 
-            bg = '#dfe3ee')
+            bg = '#dfe3ee'
+            )
 
         lb_porcent_one_special.place(
             relx=0.02,
-            rely=0.4)
+            rely=0.4
+            )
 
         lb_porcent_two_special = Label(
             frame_porcentTwo, 
             text = "R$19 >=", 
-            bg = '#dfe3ee')
+            bg = '#dfe3ee'
+            )
 
         lb_porcent_two_special.place(
             relx=0.02,
-            rely=0.6)
+            rely=0.6
+            )
 
         lb_porcent_tree_special = Label(
             frame_porcentTwo, 
             text = "R$20 <=", 
-            bg = '#dfe3ee')
+            bg = '#dfe3ee'
+            )
 
         lb_porcent_tree_special.place(
             relx=0.02,
-            rely=0.8)
+            rely=0.8
+            )
 
         
 
-        # # -------- Entry -------- #
+        """Porcent Special Normal One"""
+        self.var_porcent_special_one = StringVar(
+            self.window,
+            self.porcents[2][0]
+            )
 
-        # self.porcent_entry_one_special = Entry(frame_porcentTwo)
-        # self.porcent_entry_one_special.place(
-        #     relx=0.4, 
-        #     rely=0.4, 
-        #     relwidth=0.14, 
-        #     relheight=0.12)
+        self.porcent_entry_one_special = Entry(
+            frame_porcentTwo,
+            textvariable=self.var_porcent_special_one
+            )
 
-        # self.porcent_entry_two_special = Entry(frame_porcentTwo)
-        # self.porcent_entry_two_special.place(
-        #     relx=0.4, 
-        #     rely=0.6, 
-        #     relwidth=0.14, 
-        #     relheight=0.12)        
+        self.porcent_entry_one_special.place(
+            relx=0.4, 
+            rely=0.4, 
+            relwidth=0.14, 
+            relheight=0.12
+            )
+
+        """Porcent Special Normal Two"""
+        self.var_porcent_special_two = StringVar(
+            self.window,
+            self.porcents[2][1]
+            )
+
+        self.porcent_entry_two_special = Entry(
+            frame_porcentTwo,
+            textvariable=self.var_porcent_special_two
+            )
+
+        self.porcent_entry_two_special.place(
+            relx=0.4, 
+            rely=0.6, 
+            relwidth=0.14, 
+            relheight=0.12
+            )        
             
-        # self.porcent_entry_tree_special = Entry(frame_porcentTwo)
-        # self.porcent_entry_tree_special.place(
-        #     relx=0.7, 
-        #     rely=0.8, 
-        #     relwidth=0.14, 
-        #     relheight=0.12)
+        """Porcent Special Normal Tree"""
+        self.var_porcent_special_tree = StringVar(
+            self.window,
+            self.porcents[2][2]
+            )
 
-        # self.porcent_entry_one_desc_special = Entry(frame_porcentTwo)
-        # self.porcent_entry_one_desc_special.place(
-        #     relx=0.7, 
-        #     rely=0.4, 
-        #     relwidth=0.14, 
-        #     relheight=0.12)
+        self.porcent_entry_tree_special = Entry(
+            frame_porcentTwo,
+            textvariable=self.var_porcent_special_tree
+            )
 
-        # self.porcent_entry_two_desc_special = Entry(frame_porcentTwo)
-        # self.porcent_entry_two_desc_special.place(
-        #     relx=0.7, 
-        #     rely=0.6, 
-        #     relwidth=0.14, 
-        #     relheight=0.12)        
+        self.porcent_entry_tree_special.place(
+            relx=0.7, 
+            rely=0.8, 
+            relwidth=0.14, 
+            relheight=0.12)
+
+
+        """Porcent Special Desc One"""
+        self.var_porcent_special_desc_one = StringVar(
+            self.window,
+            self.porcents[3][0]
+            )
+
+        self.porcent_entry_one_desc_special = Entry(
+            frame_porcentTwo,
+            textvariable=self.var_porcent_special_desc_one
+            )
+
+        self.porcent_entry_one_desc_special.place(
+            relx=0.7, 
+            rely=0.4, 
+            relwidth=0.14, 
+            relheight=0.12)
+
+        """Porcent Special Desc Two"""
+        self.var_porcent_special_desc_two = StringVar(
+            self.window,
+            self.porcents[3][1]
+            )
+
+        self.porcent_entry_two_desc_special = Entry(
+            frame_porcentTwo,
+            textvariable=self.var_porcent_special_desc_two
+            )
+
+        self.porcent_entry_two_desc_special.place(
+            relx=0.7, 
+            rely=0.6, 
+            relwidth=0.14, 
+            relheight=0.12)        
             
-        # self.porcent_entry_tree_desc_special = Entry(frame_porcentTwo)
-        # self.porcent_entry_tree_desc_special.place(
-        #     relx=0.4, 
-        #     rely=0.8, 
-        #     relwidth=0.14, 
-        #     relheight=0.12)
+        """Porcent Special Desc Two"""
+        self.var_porcent_special_desc_tree = StringVar(
+            self.window,
+            self.porcents[3][2]
+            )
+
+        self.porcent_entry_tree_desc_special = Entry(
+            frame_porcentTwo,
+            textvariable=self.var_porcent_special_desc_tree
+            )
+
+        self.porcent_entry_tree_desc_special.place(
+            relx=0.4, 
+            rely=0.8, 
+            relwidth=0.14, 
+            relheight=0.12
+            )
