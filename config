@@ -1,13 +1,165 @@
 {
    "values": {
       "common": {
-         "normal": {},
-         "desc": {}
+         "normal": [
+            11,
+            12,
+            13
+         ],
+         "desc": [
+            11,
+            12,
+            13
+         ]
       },
       "special": {
-         "normal": {},
-         "desc": {}
+         "normal": [
+            74,
+            74,
+            13
+         ],
+         "desc": [
+            11,
+            12,
+            74
+         ]
       }
    },
-   "records": {}
+   "records": {
+      "aida_hb20_preto": {
+         "porcent": 0
+      },
+      "alexandre_etios_prata": {
+         "porcent": 0
+      },
+      "antonio_peugeot_branco": {
+         "porcent": 1
+      },
+      "augusto_gol_preto": {
+         "porcent": 1
+      },
+      "benedito_cobalt_branco": {
+         "porcent": 0
+      },
+      "bruno_grand_siena_branco": {
+         "porcent": 1
+      },
+      "carlos_palio_prata": {
+         "porcent": 0
+      },
+      "claudio_uno_branco": {
+         "porcent": 1
+      },
+      "clesio_palio_preto": {
+         "porcent": 0
+      },
+      "daniel_virtus_branco": {
+         "porcent": 1
+      },
+      "davi_grand_siena_branco": {
+         "porcent": 0
+      },
+      "decio_etios_cinza": {
+         "porcent": 0
+      },
+      "denilson_grand_siena_prata": {
+         "porcent": 0
+      },
+      "denilson_prisma_branco": {
+         "porcent": 1
+      },
+      "diego_onix_prata": {
+         "porcent": 0
+      },
+      "edvandro_grand_siena_cinza": {
+         "porcent": 0
+      },
+      "eric_idea_branco": {
+         "porcent": 0
+      },
+      "fabio_hb20_branco": {
+         "porcent": 0
+      },
+      "felipe_siena_marrom": {
+         "porcent": 0
+      },
+      "gabriel_gol_prata": {
+         "porcent": 0
+      },
+      "gabriel_prisma_branco": {
+         "porcent": 0
+      },
+      "janaina_ford_ka_branco": {
+         "porcent": 0
+      },
+      "joao_classic_preto": {
+         "porcent": 0
+      },
+      "joao_focus_preto": {
+         "porcent": 0
+      },
+      "jose_ivo_gol_preto": {
+         "porcent": 0
+      },
+      "josue_spin_cinza": {
+         "porcent": 0
+      },
+      "juninho_palio_preto": {
+         "porcent": 0
+      },
+      "lilian_classic_prata": {
+         "porcent": 0
+      },
+      "luciano_celta_branco": {
+         "porcent": 0
+      },
+      "luciano_gol_prata": {
+         "porcent": 0
+      },
+      "manoelito_classic_prata": {
+         "porcent": 0
+      },
+      "marcos_grand_siena_branco": {
+         "porcent": 0
+      },
+      "mariano_tupa": {
+         "porcent": 0
+      },
+      "odenildo_prisma_branco": {
+         "porcent": 0
+      },
+      "pamela_virtus_branco": {
+         "porcent": 0
+      },
+      "priscila_gol_prata": {
+         "porcent": 0
+      },
+      "ronaldo_ford_ka_branco": {
+         "porcent": 0
+      },
+      "rosane_peugeot_preto": {
+         "porcent": 0
+      },
+      "rose_onix_preto": {
+         "porcent": 0
+      },
+      "tiago_novo_uno_branco": {
+         "porcent": 0
+      },
+      "tyago_prisma_prata": {
+         "porcent": 0
+      },
+      "vagner_cobalt_preto": {
+         "porcent": 0
+      },
+      "wellington_sandero_branco": {
+         "porcent": 0
+      },
+      "wlad_novo_uno_branco": {
+         "porcent": 0
+      },
+      "yuri_novo_uno_cinza": {
+         "porcent": 0
+      }
+   }
 }

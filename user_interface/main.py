@@ -269,7 +269,7 @@ class Application(TkFunctions):
             bg='#364094', 
             fg='white', 
             font=('verdana', 8, 'bold'), 
-            command=None
+            command=self.export_pdf
             )
 
         self.bt_export.place(

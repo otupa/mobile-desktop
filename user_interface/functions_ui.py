@@ -15,7 +15,8 @@ from sources import (
     insert_data,
     search_runs,
     show_tables,
-    ConfigJson
+    ConfigJson,
+    ReportGenerator
 )
 
 class TkFunctions():        
@@ -62,8 +63,6 @@ class TkFunctions():
 
         data_frame = search_runs(name, date_one, date_two)
         motorist = DataExtructure(
-            name, 
-            (date_one, date_two), 
             data_frame, 
             porcents,
             )
@@ -78,14 +77,20 @@ class TkFunctions():
         directory = filedialog.askdirectory()
         date_one = self.pick_date(0)
         date_two = self.pick_date(1)
-        name = self.stringVar.get()
-        if name == 'MOTORISTAS':
-            return None
+        name = self.str_var.get()
+        if name == 'MOTORISTAS': return None
 
         data_frame = search_runs(name, date_one, date_two)
         porcents = self.check_porcent(name)
-        motorist = DataExtructure(name, (date_one, date_two), data_frame, porcents)
-        motorist.report_pdf(directory, [date_one, date_two]) 
+        motorist = DataExtructure(data_frame, porcents)
+        ReportGenerator(
+            name.upper(),
+            (str(date_one)[:-9], str(date_two)[:-9]),
+            motorist.get_result_faturation(),
+            directory)
+        
+        self.insert_treeview_data(data_frame)
+        self.insert_treeview_result(motorist.get_result_faturation_list())
     
     def check_porcent(self, name: str) -> List:
         """Check porcents from Motorists"""
@@ -104,9 +109,12 @@ class TkFunctions():
             data_frame = search_runs(name, date_one, date_two)
             porcents = self.check_porcent(name)
             if not data_frame: continue
-            motorist = DataExtructure(name, (date_one, date_two), data_frame, porcents)
-            motorist.report_pdf(directory, [date_one, date_two])
-
+            motorist = DataExtructure(data_frame, porcents)
+            ReportGenerator(
+                name.upper(),
+                (str(date_one)[:-9], str(date_two)[:-9]),
+                motorist.get_result_faturation(),
+                directory)
                 
     def import_data(self) -> None:
         """Import Files Data for the System"""

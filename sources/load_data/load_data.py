@@ -12,13 +12,13 @@ import locale
 import pandas as pd
 from pandas import DataFrame
 
-from data_analyse import DataAnalyse
+from .data_analyse import DataAnalyse
 
 
 class DataExtructure(DataAnalyse):
     """ object to load, analyse and export data """
 
-    def __init__(self, name:str, dates:Tuple[str, str], data_frame: List, porcents: Tuple) -> None:
+    def __init__(self, data_frame: List, porcents: Tuple) -> None:
         """ Receave data for load and calculate"""
         locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
         self.data_frame = self.set_data_frame(data_frame)
@@ -37,15 +37,15 @@ class DataExtructure(DataAnalyse):
     def set_data_frame_faturation(
         self, porcents: Tuple) -> Type[DataFrame]:
         """ set a data with faturation """
-        collumns = ["valor", "amount", "operation", "porcent", "receved", "revenue"]
+        collumns = ["valor", "n°", "op.", "%", "receita", "fatura"]
         data_frame, total = self.analyse_faturation(porcents)
         df_data = pd.DataFrame(data_frame, columns=collumns, index=None)
         df_total = pd.DataFrame([total], columns=collumns, index=None)
         df_data["valor"] = df_data["valor"].map(locale.currency)
         df_final = df_data.append(df_total)
-        df_final["receved"] = df_final["receved"].map(locale.currency)
-        df_final["revenue"] = df_final["revenue"].map(locale.currency)
-        df_final["porcent"] = df_final["porcent"].astype(str) + " %"
+        df_final["receita"] = df_final["receita"].map(locale.currency)
+        df_final["fatura"] = df_final["fatura"].map(locale.currency)
+        df_final["%"] = df_final["%"].astype(str) + " %"
         return df_final
 
 

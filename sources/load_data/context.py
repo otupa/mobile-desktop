@@ -25,4 +25,4 @@ motorista = DataExtructure(
             20
         ]
     ],
-    ).get_result_faturation_list()
+    ).get_result_faturation()
