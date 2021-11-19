@@ -57,12 +57,12 @@ class ReportGenerator:
 
     def set_table(self, content) -> None:
         """Format and Insert Table in Story"""
-        df = content.reset_index()
-        df = df.rename(columns={"index": ""})
-        data = [df.columns.to_list()] + df.values.tolist()
+        data_frame = content.reset_index()
+        data_frame = data_frame.rename(columns={"index": ""})
+        data = [data_frame.columns.to_list()] + data_frame.values.tolist()
         table = Table(data)
-        table.setStyle(TableStyle([
-            ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
-            ('BOX', (0, 0), (-1, -1), 0.25, colors.black)
-        ]))
+        table.setStyle(
+            TableStyle([
+                ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
+                ('BOX', (0, 0), (-1, -1), 0.25, colors.black)]))
         self.story.append(table)
