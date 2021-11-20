@@ -29,6 +29,7 @@ class Application(TkFunctions):
         self.window.resizable(True, True)
         
         self.porcents = self.config.get_values()
+        print(self.porcents)
 
         """Define Brasil Locale for Currency"""
         locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
@@ -484,7 +485,7 @@ class Application(TkFunctions):
 
         lb_porcent_desc = Label(
             frame_porcent,
-            text='P. _desc.',
+            text='P. desc.',
             bg = '#dfe3ee'
             )
 
@@ -495,7 +496,7 @@ class Application(TkFunctions):
 
         lb_porcent_one = Label(
             frame_porcent, 
-            text = "R$10 >=", 
+            text = "R$12", 
             bg = '#dfe3ee'
             )
 
@@ -506,7 +507,7 @@ class Application(TkFunctions):
 
         lb_porcent_two = Label(
             frame_porcent, 
-            text = "R$12", 
+            text = "R$13", 
             bg = '#dfe3ee'
             )
 
@@ -517,7 +518,7 @@ class Application(TkFunctions):
 
         lb_porcent_tree = Label(
             frame_porcent, 
-            text = "R$20", 
+            text = "R$23", 
             bg = '#dfe3ee'
             )
 
@@ -684,7 +685,7 @@ class Application(TkFunctions):
 
         lb_porcent_desc_special = Label(
             frame_porcentTwo,
-            text='P. _desc.',
+            text='P. desc.',
             bg = '#dfe3ee'
             )
 
@@ -694,7 +695,7 @@ class Application(TkFunctions):
 
         lb_porcent_one_special = Label(
             frame_porcentTwo, 
-            text = "R$10 >=", 
+            text = "R$12", 
             bg = '#dfe3ee'
             )
 
@@ -705,7 +706,7 @@ class Application(TkFunctions):
 
         lb_porcent_two_special = Label(
             frame_porcentTwo, 
-            text = "R$19 >=", 
+            text = "R$13", 
             bg = '#dfe3ee'
             )
 
@@ -716,7 +717,7 @@ class Application(TkFunctions):
 
         lb_porcent_tree_special = Label(
             frame_porcentTwo, 
-            text = "R$20 <=", 
+            text = "R$23", 
             bg = '#dfe3ee'
             )
 

@@ -58,17 +58,17 @@ class DataAnalyse:
 
     def set_porcent(self, data: List, porcent: Tuple) -> List:
         """ define a porcent values for incidences """
-        if data[0] == 10:
+        if data[0] == 12:
             if data[2] == "+":
                 return [data[0], data[1], data[2], porcent[0][0]]
             if data[2] == "-":
                 return [data[0], data[1], data[2], porcent[1][0]]
-        elif data[0] <= 20:
+        elif data[0] <= 22:
             if data[2] == "+":
                 return [data[0], data[1], data[2], porcent[0][1]]
             if data[2] == "-":
                 return [data[0], data[1], data[2], porcent[1][1]]
-        elif data[0] >= 20:
+        elif data[0] >= 23:
             if data[2] == "+":
                 return [data[0], data[1], data[2], porcent[0][2]]
             if data[2] == "-":
