@@ -4,7 +4,8 @@ import csv
 import sys
 import os
 
-rel_path = dirname(realpath(__file__))
+from settings import PROJECT_PATH
+
 
 
 class ConnectSql():
@@ -32,7 +33,7 @@ class ConnectSql():
 
 def create_sql_table():
     connect = ConnectSql()
-    for file in os.listdir(join(rel_path,'data_csv')):
+    for file in os.listdir(join(PROJECT_PATH, 'data_csv')):
         scheme_ = "CREATE TABLE IF NOT EXISTS {}(" \
             "date_time DATETIME UNIQUE, " \
             "valor INTEGER(11) NOT NULl, " \
@@ -43,9 +44,9 @@ def create_sql_table():
 
 def insert_data():
     connect = ConnectSql()
-    for file in os.listdir(join(rel_path,'data_csv')):
+    for file in os.listdir(join(PROJECT_PATH, 'data_csv')):
         csv_archive = csv.reader(open(
-            os.path.join(rel_path,'data_csv', file), 'rt'), delimiter=',')
+            os.path.join(PROJECT_PATH,'data_csv', file), 'rt'), delimiter=',')
 
         for line in csv_archive:
             scheme_ = "INSERT IGNORE INTO {}" \

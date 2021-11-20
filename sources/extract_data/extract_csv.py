@@ -4,6 +4,8 @@ import re
 import os
 from os.path import join, dirname, realpath
 
+from settings import PROJECT_PATH
+
 dataframe_list = []
 
 def open_archive(directory, archive):
@@ -19,9 +21,8 @@ def line_piker(archive_talk, argument):
     return [linha for linha in archive_talk if argument in linha]
 
 def save_csv(data_list, archive_name):
-    df_pd = pandas.DataFrame(data_list).to_csv(
-        join(dirname(realpath(__file__)),
-        'data_csv/'+archive_name+'.csv'), 
+    pandas.DataFrame(data_list).to_csv(
+        join(PROJECT_PATH, 'data_csv/'+archive_name+'.csv'), 
         header=False, encoding='utf-8', index=False)
 
 def filter(argument):
