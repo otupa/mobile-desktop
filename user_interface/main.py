@@ -1,6 +1,7 @@
 ''' User Interface - Tkinter '''
 
 """System Imports"""
+from datetime import datetime, timedelta
 import locale
 
 from sources.mariadb_connect.connect_sql import show_tables
@@ -27,9 +28,12 @@ class Application(TkFunctions):
         self.window.configure(background='#1e3743')
         self.window.geometry('1000x600')
         self.window.resizable(True, True)
+
+        self.date_one = datetime.now()
+
+        self.date_two = self.date_one - timedelta(days=7)
         
         self.porcents = self.config.get_values()
-        print(self.porcents)
 
         """Define Brasil Locale for Currency"""
         locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
@@ -115,7 +119,7 @@ class Application(TkFunctions):
         """Treeview for Result Visualization"""
         self.result_treeview = ttk.Treeview(
             self.frame_data_view, height=3, 
-            column=("coll1", "coll2", "coll3", "coll4", "coll5", "coll6"))
+            column=("coll1", "coll2", "coll3", "coll4"))
 
         self.result_treeview.place(
             relx=0.02, 
@@ -138,20 +142,16 @@ class Application(TkFunctions):
             yscrollcommand=self.scroll_result.set)
 
         self.result_treeview.heading("#0", text="")
-        self.result_treeview.heading("#1", text="valores")
+        self.result_treeview.heading("#1", text="Valores")
         self.result_treeview.heading("#2", text="n°")
-        self.result_treeview.heading("#3", text="op.")
-        self.result_treeview.heading("#4", text="%")
-        self.result_treeview.heading("#5", text="receita")
-        self.result_treeview.heading("#6", text="fatura")
+        self.result_treeview.heading("#3", text="Recebido")
+        self.result_treeview.heading("#4", text="A Pagar")
 
         self.result_treeview.column("#0", width=13, stretch = "no", anchor='center')
         self.result_treeview.column("#1", width=80, anchor='center')
         self.result_treeview.column("#2", width=40, anchor='center')
-        self.result_treeview.column("#3", width=40, anchor='center')
-        self.result_treeview.column("#4", width=50, anchor='center')
-        self.result_treeview.column("#5", width=93, anchor='center')
-        self.result_treeview.column("#6", width=93, anchor='center')
+        self.result_treeview.column("#3", width=50, anchor='center')
+        self.result_treeview.column("#4", width=93, anchor='center')
 
 
     def menu_view(self):
@@ -194,7 +194,9 @@ class Application(TkFunctions):
             font="Arial 12", 
             selectmode='day', 
             cursor="hand1", 
-            year=2021, month=1, day=31, 
+            year=self.date_two.year, 
+            month=self.date_two.month, 
+            day=self.date_two.day, 
             date_pattern='dd/mm/Y'
             )
 
@@ -215,8 +217,9 @@ class Application(TkFunctions):
             font="Arial 12", 
             selectmode='day', 
             cursor="hand1", 
-            year=2021, 
-            month=2, day=7,
+            year=self.date_one.year, 
+            month=self.date_one.month, 
+            day=self.date_one.day,
             date_pattern='dd/mm/Y'
             )
 
@@ -776,7 +779,7 @@ class Application(TkFunctions):
             )
 
         self.porcent_entry_tree_special.place(
-            relx=0.7, 
+            relx=0.4, 
             rely=0.8, 
             relwidth=0.14, 
             relheight=0.12)
@@ -816,7 +819,7 @@ class Application(TkFunctions):
             relwidth=0.14, 
             relheight=0.12)        
             
-        """Porcent Special Desc Two"""
+        """Porcent Special Desc Tree"""
         self.var_porcent_special_desc_tree = StringVar(
             self.window,
             self.porcents[3][2]
@@ -828,7 +831,7 @@ class Application(TkFunctions):
             )
 
         self.porcent_entry_tree_desc_special.place(
-            relx=0.4, 
+            relx=0.7, 
             rely=0.8, 
             relwidth=0.14, 
             relheight=0.12

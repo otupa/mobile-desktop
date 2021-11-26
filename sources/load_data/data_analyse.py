@@ -1,75 +1,64 @@
 """ Analyse informations from LoadData """
 
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 from collections import Counter
 
+import locale
+
+locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
 
 class DataAnalyse:
-    """ analyse elements of object """
+    """ Analyse data for the faturation document """
+    def analyse_faturation(self) -> List:
+        """ Pick incidences in the list"""
+        incidences = Counter([(item[1], item[2]) for item in self.data_list])
+        result_list =  list([[item[0], incidences[item], item[1]] for item in incidences])
+        for item in result_list:
+            item.append(item[0] * (item)[1])
+            porcent = self.set_porcent(item)
+            item.append(item[3] * porcent / 100)
+        
+        total_runs = sum([item[1] for item in result_list])
+        total_receved = sum([item[3] for item in result_list])
+        total_to_pay = sum([item[4] for item in result_list])
 
-    def set_incidences(self, data_frame: List) -> List:
-        """ This method count how many
-        incidences of an int
-        and return a Dict
-        """
-        dict_ = dict(Counter([(item[1], item[2]) for item in data_frame]))
-        return [[item[0], dict_[item], item[1]] for item in dict_]
+        if total_to_pay <= 50:
+            total_to_pay = 50
 
+        for item in result_list:
+            value = item.pop(2)
+            if value == "-":
+                item[2] = item[2] * -1
 
-    def analyse_faturation(self, porcents: Tuple) -> List:
-        """ result of analysis """
-        return self.apply_calc(porcents)
-
-
-    def apply_calc(self, porcent: Tuple) -> List:
-        """ extruture dataframe """
-        data_frame = [self.set_porcent(item, porcent) for item in self.get_incidences()]
-        for item in data_frame:
-            item.append(self.calc_total_receved(item))
-            item.append(self.calc_porcent(item))
-        return data_frame, self.calc_total_faturation(data_frame)
-
-
-    def calc_total_faturation(self, data_frame: List) -> List:
-        """ calculate total faturtion data """
-        total_amount = sum([(item[1]) for item in data_frame])
-        total_receved = sum([(item[4]) for item in data_frame])
-        total_revenue = sum([(item[5]) for item in data_frame])
-        total_porcent = total_revenue * 100 / total_receved
-        return (
-            "total",
-            total_amount,
-            "=",
-            round(total_porcent, 2),
+        
+        result_list.append([
+            0,
+            total_runs,
             total_receved,
-            total_revenue,
-            )
+            total_to_pay
+        ])
 
+        return result_list
 
-    def calc_total_receved(self, data: List) -> int:
-        """ multiply valor an amount """
-        return data[0] * data[1]
-
-
-    def calc_porcent(self, data: List) -> float:
-        """ define revenue valor """
-        return data[3] * data[4] / 100
-
-
-    def set_porcent(self, data: List, porcent: Tuple) -> List:
-        """ define a porcent values for incidences """
-        if data[0] == 12:
+    def set_porcent(self, data) -> List:
+        """define a porcent values for incidences"""
+        # values = [int(item) for item in list(self.porcents)]
+        # porcents = [self.porcents[item] for item in list(self.porcents)]
+        porcents = self.porcents
+        if data[0] >= 0 and data[0] <= 12:
             if data[2] == "+":
-                return [data[0], data[1], data[2], porcent[0][0]]
+                return porcents[0][0]
             if data[2] == "-":
-                return [data[0], data[1], data[2], porcent[1][0]]
-        elif data[0] <= 22:
+                return porcents[1][0]
+        if data[0] >= 13 and data[0] <= 22:
             if data[2] == "+":
-                return [data[0], data[1], data[2], porcent[0][1]]
+                return porcents[0][1]
             if data[2] == "-":
-                return [data[0], data[1], data[2], porcent[1][1]]
-        elif data[0] >= 23:
+                return porcents[1][1]
+        if data[0] >= 23:
             if data[2] == "+":
-                return [data[0], data[1], data[2], porcent[0][2]]
+                return porcents[0][2]
             if data[2] == "-":
-                return [data[0], data[1], data[2], porcent[1][2]]
+                return porcents[1][2]
+
+

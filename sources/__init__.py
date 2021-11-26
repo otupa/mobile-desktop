@@ -9,4 +9,4 @@ from .mariadb_connect.connect_sql import (
     show_tables,
 )
 from .jconfig.json_config import ConfigJson
-from .report.report import ReportGenerator
+from .report.report import save_report

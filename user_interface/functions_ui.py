@@ -16,7 +16,7 @@ from sources import (
     search_runs,
     show_tables,
     ConfigJson,
-    ReportGenerator
+    save_report
 )
 
 class TkFunctions():        
@@ -32,7 +32,7 @@ class TkFunctions():
         self.data_treeview.delete(
             *self.data_treeview.get_children())
         [self.data_treeview.insert(
-            "", END, values=(data[0], locale.currency(data[1]), data[2]))
+            "", END, values=(data[0], data[1], data[2]))
                                 for data in data_frame]
 
     def insert_treeview_result(self, data_frame: List) -> None:
@@ -41,7 +41,7 @@ class TkFunctions():
             *self.result_treeview.get_children())
         [self.result_treeview.insert(
             "", END, values=(
-                data[0], data[1], data[2], data[3], data[4], data[5]))
+                data[0], data[1], data[2], data[3]))
                                         for data in data_frame]
 
     def pick_date(self, option: int) -> datetime:
@@ -67,7 +67,7 @@ class TkFunctions():
             porcents,
             )
 
-        result = motorist.get_result_faturation_list()
+        result = motorist.get_result()
 
         self.insert_treeview_data(data_frame)
         self.insert_treeview_result(result)
@@ -77,20 +77,21 @@ class TkFunctions():
         directory = filedialog.askdirectory()
         date_one = self.pick_date(0)
         date_two = self.pick_date(1)
+        print(date_one, date_two)
         name = self.str_var.get()
         if name == 'MOTORISTAS': return None
 
         data_frame = search_runs(name, date_one, date_two)
         porcents = self.check_porcent(name)
         motorist = DataExtructure(data_frame, porcents)
-        ReportGenerator(
+        save_report(
             name.upper(),
-            (str(date_one)[:-9], str(date_two)[:-9]),
-            motorist.get_result_faturation(),
+            str(date_one)[:-9], str(date_two)[:-9],
+            motorist.get_result(),
             directory)
         
         self.insert_treeview_data(data_frame)
-        self.insert_treeview_result(motorist.get_result_faturation_list())
+        self.insert_treeview_result(motorist.get_result())
     
     def check_porcent(self, name: str) -> List:
         """Check porcents from Motorists"""
@@ -110,10 +111,10 @@ class TkFunctions():
             porcents = self.check_porcent(name)
             if not data_frame: continue
             motorist = DataExtructure(data_frame, porcents)
-            ReportGenerator(
+            save_report(
                 name.upper(),
-                (str(date_one)[:-9], str(date_two)[:-9]),
-                motorist.get_result_faturation(),
+                str(date_one)[:-9], str(date_two)[:-9],
+                motorist.get_result(),
                 directory)
                 
     def import_data(self) -> None:

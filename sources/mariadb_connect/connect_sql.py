@@ -17,7 +17,7 @@ class ConnectSql():
                 host="localhost",
                 port=3306,
                 database='base_g4')
-            print('base de dados conectada')
+            # print('base de dados conectada')
             #self.conn.autocommit = False
             self.cursor = self.conn.cursor()
 
