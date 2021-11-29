@@ -9,7 +9,7 @@ class ReportGenerator:
         pass
 
 font_path = os.path.join(PROJECT_PATH, "Roboto-Regular.ttf")
-logo_path = os.path.join(PROJECT_PATH, "Roboto-Regular.ttf")
+logo_path = os.path.join(PROJECT_PATH, "logo.png")
 
 def save_report(name, date_one, date_two, data_frame, directory, motorist_id="000"):
     """Configs"""
