@@ -129,8 +129,8 @@ def save_report(name, date_one, date_two, data_frame, directory, motorist_id="00
     content_retangle.text(
         (150, 755),
         "Muito Obrigado pela sua Colaboração! \n" \
-        "O pagamento devera ser realizado através de ... \n" \
-        "para ..."
+        "A Forma de Pagamento estará no Grupo da Diretória \n" \
+        ""
         ,
         (255 ,255 ,255),
         font=ImageFont.truetype(font_path, 15),
