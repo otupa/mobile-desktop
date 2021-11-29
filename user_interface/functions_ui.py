@@ -1,6 +1,6 @@
 ''' Tkinter Functions to user Interactions '''
 
-from datetime import datetime
+from datetime import datetime, timedelta
 import locale
 
 from tkinter.constants import END, TRUE
@@ -49,7 +49,8 @@ class TkFunctions():
         if option == 0:
             return datetime.strptime(self.left_calendar.get(), '%d/%m/%Y')
         elif option == 1:
-            return datetime.strptime(self.right_calendar.get(), '%d/%m/%Y')
+            return datetime.strptime(
+                self.right_calendar.get(), '%d/%m/%Y') + timedelta(days=1)
         
     def search_(self) -> None:
         """Search Motorist Faturation"""
@@ -58,7 +59,6 @@ class TkFunctions():
 
         date_one = self.pick_date(0)
         date_two = self.pick_date(1)
-
         porcents = self.check_porcent(name)
 
         data_frame = search_runs(name, date_one, date_two)

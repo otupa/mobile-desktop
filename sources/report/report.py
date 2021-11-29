@@ -14,7 +14,7 @@ def save_report(name, date_one, date_two, data_frame, directory, motorist_id="00
     height = 842
 
     """Top Retangle"""
-    img = Image.new('RGBA', (595, 842), color = '#E5E5E5')
+    img = Image.new('RGBA', (width, height), color = '#E5E5E5')
 
     """Top Retangle"""
     top_retangle = ImageDraw.Draw(img)
@@ -30,7 +30,7 @@ def save_report(name, date_one, date_two, data_frame, directory, motorist_id="00
     content_retangle.rectangle([(596, 86), (595, 86)], fill ="#E5E5E5")
 
     table_retangle = ImageDraw.Draw(img)
-    table_retangle.rectangle([(40, 260), (550, 630)], fill="#E5E5E5", outline=1)
+    table_retangle.rectangle([(40, 260), (550, 630)], fill="#E5E5E5", outline="#000000")
 
     content_retangle.text(
         (40, 110),
@@ -38,7 +38,7 @@ def save_report(name, date_one, date_two, data_frame, directory, motorist_id="00
         (0 ,0 ,0),
         font=ImageFont.truetype("./Roboto-Regular.ttf", 14))
     name_retangle = ImageDraw.Draw(img)
-    name_retangle.rectangle([(40, 130), (550, 160)], fill ="#E5E5E5", outline=1)
+    name_retangle.rectangle([(40, 130), (550, 160)], fill ="#E5E5E5", outline="#000000")
 
     content_retangle.text(
         (40, 180),
@@ -46,7 +46,7 @@ def save_report(name, date_one, date_two, data_frame, directory, motorist_id="00
         (0 ,0 ,0),
         font=ImageFont.truetype("./Roboto-Regular.ttf", 14))
     id_retangle = ImageDraw.Draw(img)
-    id_retangle.rectangle([(40, 200), (180, 230)], fill ="#E5E5E5", outline=1)
+    id_retangle.rectangle([(40, 200), (180, 230)], fill ="#E5E5E5", outline="#000000")
 
     content_retangle.text(
         (250, 180),
@@ -55,7 +55,7 @@ def save_report(name, date_one, date_two, data_frame, directory, motorist_id="00
         font=ImageFont.truetype("./Roboto-Regular.ttf", 14))
 
     data_one_retangle = ImageDraw.Draw(img)
-    data_one_retangle.rectangle([(250, 200), (380, 230)], fill ="#E5E5E5", outline=1)
+    data_one_retangle.rectangle([(250, 200), (380, 230)], fill ="#E5E5E5", outline="#000000")
 
     content_retangle.text(
         (420, 180),
@@ -64,7 +64,7 @@ def save_report(name, date_one, date_two, data_frame, directory, motorist_id="00
         font=ImageFont.truetype("./Roboto-Regular.ttf", 14))
 
     data_two_retangle = ImageDraw.Draw(img)
-    data_two_retangle.rectangle([(420, 200), (550, 230)], fill ="#E5E5E5", outline=1)
+    data_two_retangle.rectangle([(420, 200), (550, 230)], fill ="#E5E5E5", outline="#000000")
 
     content_retangle.text(
         (85, 270),
@@ -73,19 +73,19 @@ def save_report(name, date_one, date_two, data_frame, directory, motorist_id="00
         font=ImageFont.truetype("./Roboto-Regular.ttf", 14))
 
     content_retangle.text(
-        (160, 270),
+        (180, 270),
         "Quantidade:",
         (0 ,0 ,0),
         font=ImageFont.truetype("./Roboto-Regular.ttf", 14))
 
     content_retangle.text(
-        (340, 270),
+        (300, 270),
         "Recebido:",
         (0 ,0 ,0),
         font=ImageFont.truetype("./Roboto-Regular.ttf", 14))
 
     content_retangle.text(
-        (460, 270),
+        (420, 270),
         "A Pagar:",
         (0 ,0 ,0),
         font=ImageFont.truetype("./Roboto-Regular.ttf", 14))
@@ -98,7 +98,7 @@ def save_report(name, date_one, date_two, data_frame, directory, motorist_id="00
 
 
     total_runs_retangle = ImageDraw.Draw(img)
-    total_runs_retangle.rectangle([(48, 680), (189, 720)], fill ="#E5E5E5", outline=1)
+    total_runs_retangle.rectangle([(48, 680), (189, 720)], fill ="#E5E5E5", outline="#000000")
 
     content_retangle.text(
         (232, 660),
@@ -107,7 +107,7 @@ def save_report(name, date_one, date_two, data_frame, directory, motorist_id="00
         font=ImageFont.truetype("./Roboto-Regular.ttf", 14))
 
     total_recived_retangle = ImageDraw.Draw(img)
-    total_recived_retangle.rectangle([(230, 680), (370, 720)], fill ="#E5E5E5", outline=1)
+    total_recived_retangle.rectangle([(230, 680), (370, 720)], fill ="#E5E5E5", outline="#000000")
 
     content_retangle.text(
         (400, 660),
@@ -117,7 +117,7 @@ def save_report(name, date_one, date_two, data_frame, directory, motorist_id="00
 
 
     total_to_pay_retangle = ImageDraw.Draw(img)
-    total_to_pay_retangle.rectangle([(400, 680), (530, 720)], fill="#E5E5E5", outline=1)
+    total_to_pay_retangle.rectangle([(400, 680), (530, 720)], fill="#E5E5E5", outline="#000000")
 
     """Footer Retangle"""
     footer_retangle = ImageDraw.Draw(img)
@@ -186,19 +186,19 @@ def save_report(name, date_one, date_two, data_frame, directory, motorist_id="00
         font=ImageFont.truetype("./Roboto-Regular.ttf", 12))
 
         content_retangle.text(
-        (190, valor),
+        (200, valor),
         "{}".format(row[1]),
         (0 ,0 ,0),
         font=ImageFont.truetype("./Roboto-Regular.ttf", 12))
 
         content_retangle.text(
-        (340, valor),
+        (300, valor),
         "{}".format(row[2]),
         (0 ,0 ,0),
         font=ImageFont.truetype("./Roboto-Regular.ttf", 12))
 
         content_retangle.text(
-        (460, valor),
+        (420, valor),
         "{}".format(row[3]),
         (0 ,0 ,0),
         font=ImageFont.truetype("./Roboto-Regular.ttf", 12))
