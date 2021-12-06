@@ -1,5 +1,6 @@
 """ Load informations to analysis """
 
+import os
 from typing import (
     Dict,
     List, 
@@ -37,7 +38,7 @@ class DataExtructure(DataAnalyse):
         self.data_list = data_list
         self.porcents = porcents
         
-    def get_result(self) -> List:
+    def get_data_frame(self) -> DataFrame:
         """ set a data with faturation """
         collumns = ["Valor", "Quantidade", "Recebido", "A Pagar"]
         data = self.analyse_faturation()
@@ -45,9 +46,19 @@ class DataExtructure(DataAnalyse):
         df_data["Valor"] = df_data["Valor"].map(locale.currency)
         df_data["Recebido"] = df_data["Recebido"].map(locale.currency)
         df_data["A Pagar"] = df_data["A Pagar"].map(locale.currency)
-        return df_data.values.tolist()
+        return df_data
 
+    def get_result(self) -> List:
+        return self.get_data_frame().values.tolist()
 
     def get_faturation(self):
         """Get Result Faturation"""
         return self.analyse_faturation()
+
+    def save_csv(self, directory, name):
+        """Save in csv"""
+        self.get_data_frame().to_csv(
+            os.path.join(directory, name+'.csv'), 
+            header=True, 
+            encoding='utf-8', 
+            index=False,)

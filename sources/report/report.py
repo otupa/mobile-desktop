@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 import os
 from PIL import Image, ImageDraw, ImageFont
 
@@ -11,12 +11,13 @@ class ReportGenerator:
 font_path = os.path.join(PROJECT_PATH, "Roboto-Regular.ttf")
 logo_path = os.path.join(PROJECT_PATH, "logo.png")
 
+
 def save_report(name, date_one, date_two, data_frame, directory, motorist_id="000"):
     """Configs"""
     width = 595
     height = 842
 
-    """Top Retangle"""
+    """Page"""
     img = Image.new('RGBA', (width, height), color = '#E5E5E5')
 
     """Top Retangle"""
@@ -177,7 +178,7 @@ def save_report(name, date_one, date_two, data_frame, directory, motorist_id="00
 
     content_retangle.text(
     (430, 205),
-    "{}".format(datetime.strptime(date_two, "%Y-%m-%d").strftime("%d/%m/%Y")),
+    "{}".format((datetime.strptime(date_two, "%Y-%m-%d") + timedelta(days=-1)).strftime("%d/%m/%Y")),
     (0 ,0 ,0),
     font=ImageFont.truetype(font_path, 18))
 

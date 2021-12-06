@@ -61,6 +61,7 @@ class Application(TkFunctions):
 
         archives.add_command(label="Importar", command=self.import_data) 
         archives.add_command(label="Exportar", command=None)
+        archives.add_command(label="Salvar csv", command=self.export_csv)
         archives.add_command(label="sair", command=None)
         menu_bar.add_cascade(label="Arquivo", menu=archives)
         menu_bar.add_cascade(label="Ajuda", menu=help_menu)
@@ -250,7 +251,7 @@ class Application(TkFunctions):
         """Button Search"""
         bt_search = Button(
             self.menu_frame, 
-            text="PESQUISAR", 
+            text="Pesquisar", 
             bd=2, 
             bg='#364094', 
             fg='white', 
@@ -268,11 +269,11 @@ class Application(TkFunctions):
         """Button Export"""
         self.bt_export = Button(
             self.menu_frame, 
-            text="EXPORTAR PDF", 
+            text="Exportar", 
             bd=2, 
             bg='#364094', 
             fg='white', 
-            font=('verdana', 8, 'bold'), 
+            font=('verdana', 10, 'bold'), 
             command=self.export_pdf
             )
 
@@ -286,11 +287,11 @@ class Application(TkFunctions):
         """Button All"""
         self.bt_export_all = Button(
             self.menu_frame, 
-            text="EXPORT ALL", 
+            text="Exportar Todos", 
             bd=2, 
             bg='#D92A2A', 
             fg='white', 
-            font=('verdana', 8, 'bold'), 
+            font=('verdana', 10, 'bold'), 
             command=self.export_all
             )
 

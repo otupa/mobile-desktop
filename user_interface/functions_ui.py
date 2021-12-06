@@ -77,7 +77,6 @@ class TkFunctions():
         directory = filedialog.askdirectory()
         date_one = self.pick_date(0)
         date_two = self.pick_date(1)
-        print(date_one, date_two)
         name = self.str_var.get()
         if name == 'MOTORISTAS': return None
 
@@ -93,6 +92,23 @@ class TkFunctions():
         self.insert_treeview_data(data_frame)
         self.insert_treeview_result(motorist.get_result())
     
+    def export_csv(self) -> None:
+        """Export a pdf File in specific directory"""
+        directory = filedialog.askdirectory()
+        date_one = self.pick_date(0)
+        date_two = self.pick_date(1)
+        print(date_one, date_two)
+        name = self.str_var.get()
+        if name == 'MOTORISTAS': return None
+
+        data_frame = search_runs(name, date_one, date_two)
+        porcents = self.check_porcent(name)
+        motorist = DataExtructure(data_frame, porcents)
+        motorist.save_csv(directory, name)
+
+        self.insert_treeview_data(data_frame)
+        self.insert_treeview_result(motorist.get_result())
+
     def check_porcent(self, name: str) -> List:
         """Check porcents from Motorists"""
         state = self.config.get_record_porcent(name)

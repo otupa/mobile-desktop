@@ -30,7 +30,7 @@ def filter(argument):
         date = re.findall(r"\d+/\d+/\d+", argument)
         date = datetime.datetime.strptime(date[0], "%d/%m/%Y").strftime("%Y-%m-%d")
         if not date:
-            date = '0000-00-00'
+            date = dataframe_list[-1][0]
         hour = re.findall(r"\d+\:\d+", argument)
         hour = hour[0]+':00'
         date_time = "{} {}".format(date, hour)
