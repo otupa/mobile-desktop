@@ -24,11 +24,17 @@ class DataAnalyse:
         total_runs = sum([abs(item[1]) for item in result_list])
 
         total_receved = [item[3] for item in result_list]
+        
+        total_receved_normal = sum([item[4] for item in result_list if item[2] == '+'])
         total_receved_desc = sum([item[4] for item in result_list if item[2] == '-'])
 
-        total_to_pay = sum([item[4] for item in result_list])
+        total_to_pay_normal = sum([item[4] for item in result_list if item[2] == '+'])
+        total_to_pay_descont = sum([item[4] for item in result_list if item[2] == '-'])
 
-        if total_to_pay <= 50:
+        total_to_pay = total_to_pay_normal + total_to_pay_descont
+
+        
+        if total_receved_normal <= 50:
             total_to_pay = 50 + total_receved_desc
 
         for item in result_list:
