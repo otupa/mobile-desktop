@@ -24,14 +24,12 @@ class DataAnalyse:
         total_runs = sum([abs(item[1]) for item in result_list])
 
         total_receved = [item[3] for item in result_list]
-
-        total_receved_desc = sum([item[3] for item in result_list if item[2] == '-'])
-        print(total_receved_desc)
+        total_receved_desc = sum([item[4] for item in result_list if item[2] == '-'])
 
         total_to_pay = sum([item[4] for item in result_list])
 
         if total_to_pay <= 50:
-            total_to_pay = 50 - total_receved_desc
+            total_to_pay = 50 + total_receved_desc
 
         for item in result_list:
             value = item.pop(2)

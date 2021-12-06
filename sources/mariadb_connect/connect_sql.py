@@ -7,7 +7,6 @@ import os
 from settings import PROJECT_PATH
 
 
-
 class ConnectSql():
     def __init__(self):
         try:
