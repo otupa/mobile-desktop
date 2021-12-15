@@ -33,6 +33,7 @@ def filter(argument):
             date = dataframe_list[-1][0]
         hour = re.findall(r"\d+\:\d+", argument)
         hour = hour[0]+':00'
+
         date_time = "{} {}".format(date, hour)
 
         valor = re.findall(r"\d+\s+reais", argument)
@@ -42,25 +43,37 @@ def filter(argument):
         else:
             operation = '+'
 
+        try:
+            if date_time == dataframe_list[-1][0]:
+                correction = str(int(date_time[14:-3]) + 1)
+                date_time_list = list(date_time)
+                date_time_list[14] = correction[0]
+                date_time_list[15] = correction[1]
+                date_time = "".join(date_time_list)
+                print(date_time, dataframe_list[-1])
+        except Exception as error:
+            print(error)
+
+
         format_line = [date_time, valor, operation]
         dataframe_list.append(format_line)
     except Exception as error:
         print(error, argument)
         return True
-    
+
+
+
 def extract(directory, arg_one, arg_two):
     for archive in os.listdir(directory):
         try:
             dataframe_list.clear()
             _open = open_archive(directory, archive)
             talk, name = _open
-            # print(talk)
-            # print(name)
+
             fill_line = line_piker(talk, arg_one)
             filled_line = line_piker(fill_line, arg_two)
             for line in filled_line:
                 filter(line)
-            # print(dataframe_list)
             save_csv(dataframe_list, name)
         except Exception as error:
             print("erro ao Extrair", error,dataframe_list[-1])
