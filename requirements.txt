@@ -1,0 +1,8 @@
+mariadb==1.0.10
+numpy==1.22.2
+pandas==1.4.1
+Pillow==9.0.1
+pytest==7.0.1
+reportlab==3.6.7
+tkcalendar==1.6.1
+python-dateutil==2.8.2
