@@ -33,11 +33,11 @@ class ConnectSql():
 def create_sql_table():
     connect = ConnectSql()
     for file in os.listdir(join(PROJECT_PATH, 'data_csv')):
-        scheme_ = "CREATE TABLE IF NOT EXISTS {}(" \
+        # scheme_ = 
+        connect.cursor.execute("CREATE TABLE IF NOT EXISTS {}(" \
             "date_time DATETIME UNIQUE, " \
             "valor INTEGER(11) NOT NULl, " \
-            "operator VARCHAR(1));".format(file[:-4].replace(" ", "_"))
-        connect.cursor.execute(scheme_)
+            "operator VARCHAR(1));".format(file[:-4].replace(" ", "_")))
         connect.commit_db()
     connect.close_db()
 
